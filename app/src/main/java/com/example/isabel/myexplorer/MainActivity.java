@@ -1,6 +1,8 @@
 package com.example.isabel.myexplorer;
 
 import android.app.ListActivity;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.widget.Toolbar;
@@ -24,6 +26,7 @@ public class MainActivity extends ListActivity {
     private ArrayAdapter<String> adaptador;
     private String directorioRaiz;
     private TextView carpetaActual;
+    private MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,13 +96,19 @@ public class MainActivity extends ListActivity {
             Toast.makeText(this,
                     "Has seleccionado el archivo: " + archivo.getName(),
                     Toast.LENGTH_LONG).show();
+                    String dato= archivo.getAbsolutePath();
+                   reproducir(dato);
         } else {
             verarchivosDirectorio(listaRutasArchivos.get(position));
         }
 
     }
 
+    public  void reproducir(String ruta){
+        mp = MediaPlayer.create(MainActivity.this, Uri.parse(ruta));
+        mp.start();
 
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
