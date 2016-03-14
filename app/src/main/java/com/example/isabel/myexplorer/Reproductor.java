@@ -16,6 +16,8 @@ public class Reproductor extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reproductor);
+
+
         String path = getIntent().getStringExtra("path");
 
         mp = MediaPlayer.create(Reproductor.this, Uri.parse(path));

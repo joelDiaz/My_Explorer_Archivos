@@ -3,10 +3,8 @@ package com.example.isabel.myexplorer;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -162,8 +159,6 @@ public class MainActivity extends ListActivity {
         intent.putExtras(path);
         startActivity(intent);
 
-//        mp = MediaPlayer.create(MainActivity.this, Uri.parse(ruta));
-//        mp.start();
 
     }
     /**DE AQUI PARA ABAJO NO ME INTERESA, OLVIDENLO POR AHORA*/
