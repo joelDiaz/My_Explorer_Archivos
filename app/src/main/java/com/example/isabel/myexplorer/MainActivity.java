@@ -35,6 +35,8 @@ public class MainActivity extends ListActivity {
 
         carpetaActual = (TextView) findViewById(R.id.rutaActual);
 
+
+        /**ESTE METODO REPORNA LA RUTA RAIZ DE LA TARJETA EXTERNA DEL DISPOSITIVI*/
         directorioRaiz = Environment.getExternalStorageDirectory().getPath();
         verarchivosDirectorio(directorioRaiz);
 
@@ -50,35 +52,68 @@ public class MainActivity extends ListActivity {
         File directorioActual = new File(rutaDirectorio);
         File[] listaArchivos = directorioActual.listFiles();
 
+        /** VARIABLE DE POSICIONAMIENTO*/
         int x = 0;
 
-
+        /** COMPROBAR SI ESTOY EN EL DIRECTORIO RAIZ O DENTRO DE UNO RESPECTIVAMENTE*/
         if (!rutaDirectorio.equals(directorioRaiz)) {
+
+            /**SI ESTOY DENTRO DE UNA CARPETA X*/
+            /**AGREGRO  UN INDICADOR*/
+
+
             listaNombresArchivos.add("../");
+
+            /** AGREGO EL DIRECTORIO PADRE DE DONDE VENGO PARA RETORNAR A "EL"*/
+
+
             listaRutasArchivos.add(directorioActual.getParent());
+
+            /**INDICO LA POSICION*/
             x = 1;
         }
+
+        /**
+         * RECORRO LOS ARCHIVO SI ES QUE EXISTE ALGUNO Y LO AGREGO A LA LISTA DE RUTAS
+         *
+         */
 
         for (File archivo : listaArchivos) {
             listaRutasArchivos.add(archivo.getPath());
         }
 
+
+        /**
+         *  ORDENAR ALFABETICAMENTE LA RUTA DE LOS ARCHIVOS, SIN IMPORTAR MAYUSCULA O MINUSCULA
+         *
+         */
         Collections.sort(listaRutasArchivos, String.CASE_INSENSITIVE_ORDER);
 
-
+        /**
+         *
+         * RECORRO EL DIRECTORIO Y ENCUENTRO ARCHIVOS O SUBCARPETAS, LOS AGREGO RESPECTIVAMENTE
+         *
+         */
         for (int i = x; i < listaRutasArchivos.size(); i++) {
             File archivo = new File(listaRutasArchivos.get(i));
             if (archivo.isFile()) {
+                /**SI ES UN ARCHIVO TOMO EL NOMBRE Y SE LO ADD A LA LISTA*/
                 listaNombresArchivos.add(archivo.getName());
             } else {
+                /** SI NO ES UN ARCHIVO , OBVIAMENTE ES UN DIRECTORIO
+                 * , AGREGO UN "/" MAS EL NOMBRE DEL SUBDIRECTORIO */
                 listaNombresArchivos.add("/" + archivo.getName());
             }
         }
+        /**SI NO EXISTE NINGUN ARCHIVO DENTRO DEL DIRECTORIO SELECCIONADO
+         * RETORNO UN COMENTARIO*/
         if (listaArchivos.length < 1) {
             listaNombresArchivos.add("No hay ningun archivo");
             listaRutasArchivos.add(rutaDirectorio);
         }
 
+
+        /**SETEO EL ADAPTADOR A LA LISTA DE LOS NOMBRES DE LOS ARCHIVOS*/
         adaptador = new ArrayAdapter<String>(this,
                 R.layout.text_view_lista_archivos, listaNombresArchivos);
         setListAdapter(adaptador);
@@ -86,29 +121,44 @@ public class MainActivity extends ListActivity {
 
     }
 
+
+    /**
+     * METODO PARA CAPTURAR LOS CLICK DEL USUARIO SEGUN LA POSICION DEL ELEMENTO
+     * */
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
 
-
+        /**TOMO LA POSICION DEL ARCHIVO SELECCIONADO ,
+         *
+         * NOTA:"SI ES QUE ES UN ARCHIVO"*/
         File archivo = new File(listaRutasArchivos.get(position));
 
         if (archivo.isFile()) {
             Toast.makeText(this,
                     "Has seleccionado el archivo: " + archivo.getName(),
                     Toast.LENGTH_LONG).show();
-                    String dato= archivo.getAbsolutePath();
-                   reproducir(dato);
+            String dato = archivo.getAbsolutePath();
+            reproducir(dato);
+
+            /**SI NO ES UN ARCHIVO ES UN DIRECTORIO, Y SE LLAMA A LA FUNCION PARA CREAR
+             * LA LISTA NUEVA CON LA NUEVA POSICION DE LOS SUBDIRECTORIOS*/
         } else {
             verarchivosDirectorio(listaRutasArchivos.get(position));
         }
 
     }
 
-    public  void reproducir(String ruta){
+
+    /**ESTO ES CARPINTERIA, ESTE METODO ES PARA CUANDO SELECCIONE EL ARCHIVO TIPO MP3
+     * PARA QUE LO REPRODUZCA */
+
+    public void reproducir(String ruta) {
         mp = MediaPlayer.create(MainActivity.this, Uri.parse(ruta));
         mp.start();
 
     }
+    /**DE AQUI PARA ABAJO NO ME INTERESA, OLVIDENLO POR AHORA*/
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
