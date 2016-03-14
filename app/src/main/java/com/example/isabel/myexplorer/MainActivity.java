@@ -1,6 +1,7 @@
 package com.example.isabel.myexplorer;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -137,6 +138,8 @@ public class MainActivity extends ListActivity {
             Toast.makeText(this,
                     "Has seleccionado el archivo: " + archivo.getName(),
                     Toast.LENGTH_LONG).show();
+
+
             String dato = archivo.getAbsolutePath();
             reproducir(dato);
 
@@ -153,8 +156,14 @@ public class MainActivity extends ListActivity {
      * PARA QUE LO REPRODUZCA */
 
     public void reproducir(String ruta) {
-        mp = MediaPlayer.create(MainActivity.this, Uri.parse(ruta));
-        mp.start();
+        Intent intent = new Intent(MainActivity.this,Reproductor.class);
+        Bundle path = new Bundle();
+        path.putString("path", ruta);
+        intent.putExtras(path);
+        startActivity(intent);
+
+//        mp = MediaPlayer.create(MainActivity.this, Uri.parse(ruta));
+//        mp.start();
 
     }
     /**DE AQUI PARA ABAJO NO ME INTERESA, OLVIDENLO POR AHORA*/
