@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,10 +19,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends AppCompatActivity {
 
-    private List<String> listaNombresArchivos;
-    private List<String> listaRutasArchivos;
+    private ListView listilla;
+    private ArrayList<String> listaNombresArchivos;
+    private ArrayList<String> listaRutasArchivos;
     private ArrayAdapter<String> adaptador;
     private String directorioRaiz;
     private TextView carpetaActual;
@@ -31,6 +34,7 @@ public class MainActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        listilla = (ListView)findViewById(R.id.list);
 
         carpetaActual = (TextView) findViewById(R.id.rutaActual);
 
@@ -115,39 +119,64 @@ public class MainActivity extends ListActivity {
         /**SETEO EL ADAPTADOR A LA LISTA DE LOS NOMBRES DE LOS ARCHIVOS*/
         adaptador = new ArrayAdapter<String>(this,
                 R.layout.text_view_lista_archivos, listaNombresArchivos);
-        setListAdapter(adaptador);
+        listilla.setAdapter(adaptador);
+//        setListAdapter(adaptador);
 
+
+        listilla.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                File archivo = new File(listaRutasArchivos.get(position));
+
+                if (archivo.isFile()) {
+                    Toast.makeText(MainActivity.this,"Has seleccionado el archivo: " + archivo.getName(),Toast.LENGTH_LONG).show();
+
+
+                    String dato = archivo.getAbsolutePath();
+                    reproducir(dato);
+
+                    /**SI NO ES UN ARCHIVO ES UN DIRECTORIO, Y SE LLAMA A LA FUNCION PARA CREAR
+                     * LA LISTA NUEVA CON LA NUEVA POSICION DE LOS SUBDIRECTORIOS*/
+                } else {
+                    verarchivosDirectorio(listaRutasArchivos.get(position));
+                }
+
+
+            }
+        });
 
     }
+
 
 
     /**
      * METODO PARA CAPTURAR LOS CLICK DEL USUARIO SEGUN LA POSICION DEL ELEMENTO
      * */
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-
-        /**TOMO LA POSICION DEL ARCHIVO SELECCIONADO ,
-         *
-         * NOTA:"SI ES QUE ES UN ARCHIVO"*/
-        File archivo = new File(listaRutasArchivos.get(position));
-
-        if (archivo.isFile()) {
-            Toast.makeText(this,
-                    "Has seleccionado el archivo: " + archivo.getName(),
-                    Toast.LENGTH_LONG).show();
-
-
-            String dato = archivo.getAbsolutePath();
-            reproducir(dato);
-
-            /**SI NO ES UN ARCHIVO ES UN DIRECTORIO, Y SE LLAMA A LA FUNCION PARA CREAR
-             * LA LISTA NUEVA CON LA NUEVA POSICION DE LOS SUBDIRECTORIOS*/
-        } else {
-            verarchivosDirectorio(listaRutasArchivos.get(position));
-        }
-
-    }
+//    @Override
+//    protected void onListItemClick(ListView l, View v, int position, long id) {
+//
+//        /**TOMO LA POSICION DEL ARCHIVO SELECCIONADO ,
+//         *
+//         * NOTA:"SI ES QUE ES UN ARCHIVO"*/
+//        File archivo = new File(listaRutasArchivos.get(position));
+//
+//        if (archivo.isFile()) {
+//            Toast.makeText(this,
+//                    "Has seleccionado el archivo: " + archivo.getName(),
+//                    Toast.LENGTH_LONG).show();
+//
+//
+//            String dato = archivo.getAbsolutePath();
+//            reproducir(dato);
+//
+//            /**SI NO ES UN ARCHIVO ES UN DIRECTORIO, Y SE LLAMA A LA FUNCION PARA CREAR
+//             * LA LISTA NUEVA CON LA NUEVA POSICION DE LOS SUBDIRECTORIOS*/
+//        } else {
+//            verarchivosDirectorio(listaRutasArchivos.get(position));
+//        }
+//
+//    }
 
 
     /**ESTO ES CARPINTERIA, ESTE METODO ES PARA CUANDO SELECCIONE EL ARCHIVO TIPO MP3
