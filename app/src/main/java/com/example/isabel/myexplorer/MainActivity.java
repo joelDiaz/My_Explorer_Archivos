@@ -1,6 +1,5 @@
 package com.example.isabel.myexplorer;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -122,7 +120,9 @@ public class MainActivity extends AppCompatActivity {
         listilla.setAdapter(adaptador);
 //        setListAdapter(adaptador);
 
-
+        /**
+         * METODO PARA CAPTURAR LOS CLICK DEL USUARIO SEGUN LA POSICION DEL ELEMENTO
+         * */
         listilla.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
