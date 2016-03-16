@@ -4,4 +4,10 @@
     <string name="Carpetavacia">Carpeta Vacia</string>
     <string name="app_names">Mi Aplicacion</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="Usuario">Usuario</string>
+    <string name="Password">Password</string>
+    <string name="Siguiente">Entrar</string>
+    <string name="title_activity_segunda__actividad">Segunda_Actividad</string>
+    <string name="informacion">Informacion</string>
+    <string name="masInfor">Mas Informacion</string>
 </resources>

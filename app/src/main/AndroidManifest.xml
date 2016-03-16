@@ -19,13 +19,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+
         <activity
             android:name=".Reproductor"
             android:label="@string/app_names" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Segunda_Actividad"
+            android:label="@string/title_activity_segunda__actividad"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
