@@ -37,12 +37,7 @@ public class Segunda_Actividad extends AppCompatActivity {
 
             Toast.makeText(Segunda_Actividad.this, "path vacio", Toast.LENGTH_SHORT).show();
 
-
-        } else {
-            foto.setImageURI(Uri.parse(path));
-
-
-        }
+        } else foto.setImageURI(Uri.parse(path));
 
 
         foto.setOnClickListener(new View.OnClickListener() {
