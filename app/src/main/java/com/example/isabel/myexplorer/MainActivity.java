@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
      * PARA QUE LO REPRODUZCA */
 
     public void reproducir(String ruta) {
-        Intent intent = new Intent(MainActivity.this,Reproductor.class);
+        Intent intent = new Intent(MainActivity.this,Segunda_Actividad.class);
         Bundle path = new Bundle();
         path.putString("path", ruta);
         intent.putExtras(path);

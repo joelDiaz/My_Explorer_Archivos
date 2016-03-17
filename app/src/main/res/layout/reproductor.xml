@@ -19,14 +19,14 @@
             android:id="@+id/Start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/play" />
+            android:src="@android:drawable/ic_media_play" />
 
         <ImageButton
             android:id="@+id/Pause"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="120dp"
-            android:src="@drawable/pause" />
+            android:src="@android:drawable/ic_media_pause" />
 
         <ImageButton
             android:id="@+id/Stop"
