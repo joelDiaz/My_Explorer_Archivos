@@ -76,7 +76,7 @@ public class Main2Activity extends AppCompatActivity {
 
 
                 if ((usuario.getText().toString().equals(nombres)) && (passw.getText().toString().equals(passd))) {
-                    Intent intent = new Intent(Main2Activity.this, MainActivity.class);
+                    Intent intent = new Intent(Main2Activity.this, Segunda_Actividad.class);
                     Bundle datos = new Bundle();
                     datos.putString("elusuario", usuario.getText().toString());
                     intent.putExtras(datos);
