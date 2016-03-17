@@ -26,18 +26,19 @@ public class Segunda_Actividad extends AppCompatActivity {
         TextView info = (TextView) findViewById(R.id.informacion);
         foto = (ImageButton) findViewById(R.id.imUsuario);
         String datea = getIntent().getStringExtra("elusuario");
+        String imagen = getIntent().getStringExtra("imagen");
 
         info.setText(datea + " Logueado");
 
 
-        String path = getIntent().getStringExtra("path");
+//        String path = getIntent().getStringExtra("path");
 
 
-        if (path == null) {
+        if (imagen == null) {
 
             Toast.makeText(Segunda_Actividad.this, "path vacio", Toast.LENGTH_SHORT).show();
 
-        } else foto.setImageURI(Uri.parse(path));
+        } else foto.setImageURI(Uri.parse(imagen));
 
 
         foto.setOnClickListener(new View.OnClickListener() {

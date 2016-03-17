@@ -29,7 +29,7 @@ public class Main2Activity extends AppCompatActivity {
         final EditText passw = (EditText) findViewById(R.id.Password);
 
 
-        ManagmentSqlite BD2 = new ManagmentSqlite(this, "User", null, 1);
+        ManagmentSqlite BD2 = new ManagmentSqlite(this, "UserImag", null, 1);
 
         final SQLiteDatabase Base2 = BD2.getWritableDatabase();
 
@@ -40,9 +40,10 @@ public class Main2Activity extends AppCompatActivity {
 //                String nombre = "usuario"+i;
 //                String email = nombre+"@gmail.com";
 //                String password = "j"+i*4596;
+//                String imagen = "/storage/sdcard/Pictures/icono.png";
 //
-//                Base2.execSQL("INSERT INTO User (nombre, email, password) " +
-//                        "VALUES ('" + nombre +"','"+email+"','"+password+"' )" );
+//                Base2.execSQL("INSERT INTO UserImag (nombre,email,password,imagen) " +
+//                        "VALUES ('" + nombre +"','"+email+"','"+password+"','"+imagen+"' )" );
 //
 //
 //            }
@@ -56,12 +57,13 @@ public class Main2Activity extends AppCompatActivity {
         siguiente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] campos = new String[]{"nombre", "password"};
+                String[] campos = new String[]{"nombre", "password", "imagen"};
                 final String values = usuario.getText().toString();
                 final String[] nombre = new String[]{values};
                 String nombres = "";
                 String passd = "";
-                Cursor query = Base2.query("User", campos, "nombre=?", nombre, null, null, null);
+                String imagen = "";
+                Cursor query = Base2.query("UserImag", campos, "nombre=?", nombre, null, null, null);
 
 
                 if (query.moveToFirst()) {
@@ -69,6 +71,8 @@ public class Main2Activity extends AppCompatActivity {
                     do {
                         nombres = query.getString(0);
                         passd = query.getString(1);
+                        imagen = query.getString(2);
+
 
                     } while (query.moveToNext());
 
@@ -79,6 +83,7 @@ public class Main2Activity extends AppCompatActivity {
                     Intent intent = new Intent(Main2Activity.this, Segunda_Actividad.class);
                     Bundle datos = new Bundle();
                     datos.putString("elusuario", usuario.getText().toString());
+                    datos.putString("imagen",imagen);
                     intent.putExtras(datos);
                     startActivity(intent);
                     usuario.setText("");

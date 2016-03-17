@@ -13,7 +13,7 @@ public class ManagmentSqlite extends SQLiteOpenHelper {
         super(context, name, factory, version);
     }
 
-    String sqlCreate = "CREATE TABLE User (ID Integer PRIMARY KEY AUTOINCREMENT, nombre TEXT, email TEXT,password varchar(50) NOT NULL)";
+    String sqlCreate = "CREATE TABLE UserImag (ID Integer PRIMARY KEY AUTOINCREMENT, nombre TEXT, email TEXT,password varchar(50) NOT NULL , imagen varchar(20))";
 
 
     @Override
@@ -27,7 +27,7 @@ public class ManagmentSqlite extends SQLiteOpenHelper {
 
         // Elimina la base de datos
 
-        db.execSQL("DROP TABLE IF EXISTS REGISTRO");
+        db.execSQL("DROP TABLE IF EXISTS UserImag");
 
 
         // Crea la base de datos nuevamente
